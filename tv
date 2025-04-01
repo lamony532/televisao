@@ -1,0 +1,91 @@
+# Funções que implementam as funcionalidades da TV
+
+def ligar_desligar(tv_ligada):
+    """Liga ou desliga a TV."""
+    return not tv_ligada
+
+def alterar_canal(canal_atual):
+    """Altera o canal se a TV estiver ligada e o canal for válido."""
+    canais_validos = [1, 3, 5, 7, 11]
+    if canal_atual not in canais_validos:
+        print("Canal inválido! O canal deve ser um dos seguintes: 1, 3, 5, 7, 11.")
+        return canal_atual
+    novo_canal = int(input("Digite o novo canal (1, 3, 5, 7, 11): "))
+    if novo_canal in canais_validos:
+        return novo_canal
+    else:
+        print("Canal inválido! Canal não alterado.")
+        return canal_atual
+
+def aumentar_volume(volume_atual):
+    """Aumenta o volume da TV, se estiver ligado e dentro do limite."""
+    if volume_atual < 100:
+        return volume_atual + 1
+    else:
+        print("Volume máximo atingido! Não é possível aumentar o volume.")
+        return volume_atual
+
+def diminuir_volume(volume_atual):
+    """Diminui o volume da TV, se estiver ligado e dentro do limite."""
+    if volume_atual > 0:
+        return volume_atual - 1
+    else:
+        print("Volume mínimo atingido! Não é possível diminuir o volume.")
+        return volume_atual
+
+def exibir_status(tv_ligada, canal_atual, volume_atual):
+    """Exibe o status atual da TV."""
+    status = "ligada" if tv_ligada else "desligada"
+    print(f"\nStatus da TV: {status}")
+    print(f"Canal atual: {canal_atual}")
+    print(f"Volume atual: {volume_atual}\n")
+
+def main():
+    """Função principal do simulador de TV."""
+    tv_ligada = False
+    canal_atual = 1
+    volume_atual = 0
+    
+    while True:
+        print("\nEscolha uma opção:")
+        print("1. Ligar/Desligar")
+        print("2. Alterar Canal")
+        print("3. Aumentar Volume")
+        print("4. Diminuir Volume")
+        print("5. Sair")
+        
+        opcao = int(input("Digite o número da opção desejada: "))
+        
+        if opcao == 1:
+            # Ligar ou desligar a TV
+            tv_ligada = ligar_desligar(tv_ligada)
+        elif opcao == 2:
+            if tv_ligada:
+                # Alterar canal, se a TV estiver ligada
+                canal_atual = alterar_canal(canal_atual)
+            else:
+                print("A TV está desligada! Ligue a TV para alterar o canal.")
+        elif opcao == 3:
+            if tv_ligada:
+                # Aumentar volume, se a TV estiver ligada
+                volume_atual = aumentar_volume(volume_atual)
+            else:
+                print("A TV está desligada! Ligue a TV para aumentar o volume.")
+        elif opcao == 4:
+            if tv_ligada:
+                # Diminuir volume, se a TV estiver ligada
+                volume_atual = diminuir_volume(volume_atual)
+            else:
+                print("A TV está desligada! Ligue a TV para diminuir o volume.")
+        elif opcao == 5:
+            # Sair do simulador
+            print("Saindo do simulador. Até logo!")
+            break
+        else:
+            print("Opção inválida! Por favor, escolha uma opção válida.")
+        
+        # Exibir o status atual após a ação
+        exibir_status(tv_ligada, canal_atual, volume_atual)
+
+# Iniciar o simulador de TV
+main()
